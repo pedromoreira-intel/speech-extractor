@@ -1,0 +1,13 @@
+{
+  "name": "speech-extractor-dashboard",
+  "version": "1.0.0",
+  "description": "Web dashboard for extracting speeches from YouTube videos",
+  "main": "index.html",
+  "scripts": {
+    "dev": "echo 'Open index.html in browser'",
+    "build": "echo 'No build needed'"
+  },
+  "keywords": ["speech", "youtube", "audio", "extractor"],
+  "author": "",
+  "license": "MIT"
+}
