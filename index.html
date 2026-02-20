@@ -149,6 +149,27 @@
             margin-bottom: 30px;
             border: 1px solid rgba(255,255,255,0.1);
         }
+        .main-progress-bar {
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+        .main-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+            width: 0%;
+        }
+        .progress-percent {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #38ef7d;
+        }
         .progress-step {
             display: flex; align-items: center; gap: 16px;
             padding: 16px; background: rgba(255,255,255,0.03);
@@ -369,6 +390,10 @@
             <!-- Progress Panel -->
             <div class="progress-panel" id="progressPanel" style="display: none;">
                 <h3 style="margin-bottom: 20px;">📊 Processing Status</h3>
+                <div class="progress-percent">0%</div>
+                <div class="main-progress-bar">
+                    <div class="main-progress-fill" id="mainProgressFill"></div>
+                </div>
                 <div id="progressSteps"></div>
             </div>
             
@@ -463,6 +488,10 @@
             progressPanel.style.display = 'block';
             autoResults.style.display = 'none';
             
+            // Initialize main progress bar
+            document.querySelector('.main-progress-bar').innerHTML = '<div class="main-progress-fill" id="mainProgressFill"></div>';
+            document.querySelector('.progress-percent').textContent = '0%';
+            
             // Show progress steps
             document.getElementById('progressSteps').innerHTML = `
                 <div class="progress-step active">
@@ -534,6 +563,15 @@
                 if (status === 'active') {
                     steps[step - 1].innerHTML += '<div class="spinner"></div>';
                 }
+            }
+            
+            // Update main progress bar
+            const progressFill = document.getElementById('mainProgressFill');
+            const progressPercent = document.querySelector('.progress-percent');
+            if (progressFill && progressPercent) {
+                const percent = (step / 4) * 100;
+                progressFill.style.width = percent + '%';
+                progressPercent.textContent = Math.round(percent) + '%';
             }
         }
 
