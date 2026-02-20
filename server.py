@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Local Speech Extractor Server - Run this locally to use the web interface
-Usage: python server.py
+Speech Extractor Server - Local web interface for extracting speech
+Run: python server.py
 Then open: http://localhost:5000
 """
 
@@ -15,18 +15,15 @@ from pathlib import Path
 
 app = Flask(__name__)
 
-# Storage for downloads
 downloads = []
 search_results = []
 
 def sanitize_filename(name: str) -> str:
     return re.sub(r'[<>:"/\\|?*]', '_', name)
 
-def search_youtube(query: str, max_results: int = 5) -> list:
+def search_youtube(query: str, max_results: int = 10) -> list:
     cmd = [
-        "yt-dlp",
-        "--flat-playlist",
-        "--print", "%(id)s\t%(title)s\t%(duration)s",
+        "yt-dlp", "--flat-playlist", "--print", "%(id)s\t%(title)s\t%(duration)s",
         f"ytsearch{max_results}:{query} speech OR interview OR talk"
     ]
     try:
@@ -43,7 +40,7 @@ def search_youtube(query: str, max_results: int = 5) -> list:
                         'url': f"https://www.youtube.com/watch?v={parts[0]}"
                     })
         return videos
-    except subprocess.CalledProcessError as e:
+    except:
         return []
 
 def download_video(video, output_dir="./speeches"):
@@ -55,14 +52,13 @@ def download_video(video, output_dir="./speeches"):
     
     cmd = [
         "yt-dlp", "-x", "--audio-format", "wav", "--audio-quality", "0",
-        "-o", str(output_file),
-        video['url']
+        "-o", str(output_file), video['url']
     ]
     
     try:
         subprocess.run(cmd, check=True, capture_output=True)
         return {'success': True, 'file': str(output_file), 'title': video['title']}
-    except subprocess.CalledProcessError as e:
+    except Exception as e:
         return {'success': False, 'error': str(e), 'title': video['title']}
 
 def download_background(videos, output_dir):
@@ -80,17 +76,13 @@ def api_search():
     max_results = int(request.args.get('max', 10))
     
     if not query:
-        return jsonify({'error': 'No query provided'})
+        return jsonify({'error': 'No query'})
     
     videos = search_youtube(query, max_results)
     global search_results
     search_results = videos
     
-    return jsonify({
-        'query': query,
-        'count': len(videos),
-        'videos': videos
-    })
+    return jsonify({'query': query, 'count': len(videos), 'videos': videos})
 
 @app.route('/api/download', methods=['POST'])
 def api_download():
@@ -99,19 +91,13 @@ def api_download():
     output_dir = data.get('output_dir', './speeches')
     
     if not video_ids:
-        return jsonify({'error': 'No videos selected'})
+        return jsonify({'error': 'No videos'})
     
     selected = [v for v in search_results if v['id'] in video_ids]
-    
-    # Start download in background
     thread = threading.Thread(target=download_background, args=(selected, output_dir))
     thread.start()
     
-    return jsonify({
-        'success': True,
-        'message': f'Started downloading {len(selected)} videos',
-        'queued': [v['id'] for v in selected]
-    })
+    return jsonify({'success': True, 'message': f'Downloading {len(selected)} videos'})
 
 @app.route('/api/downloads')
 def api_downloads():
@@ -125,7 +111,7 @@ def api_clear():
 
 if __name__ == '__main__':
     print("\n🎙️  Speech Extractor Server")
-    print("=" * 40)
+    print("="*40)
     print("Open: http://localhost:5000")
-    print("Press Ctrl+C to stop\n")
+    print("="*40 + "\n")
     app.run(host='0.0.0.0', port=5000, debug=True)
