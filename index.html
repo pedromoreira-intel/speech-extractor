@@ -53,10 +53,43 @@
             color: #667eea; padding: 4px 12px; border-radius: 20px;
             font-size: 12px; margin-top: 12px;
         }
+        .mode-badge.auto { background: rgba(17, 153, 142, 0.2); color: #38ef7d; }
         
         /* Panels */
         .panel { display: none; }
         .panel.active { display: block; }
+        
+        /* Auto Panel */
+        .auto-panel {
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px solid rgba(56, 239, 125, 0.3);
+        }
+        .auto-flow {
+            display: flex; align-items: center; justify-content: center; gap: 12px;
+            margin: 24px 0; flex-wrap: wrap;
+        }
+        .flow-step {
+            background: rgba(255,255,255,0.1);
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+        }
+        .flow-arrow { color: rgba(56, 239, 125, 0.7); font-size: 20px; }
+        
+        /* Settings Grid */
+        .settings-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;
+        }
+        .setting-item { background: rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; }
+        .setting-item label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
+        .setting-item input {
+            width: 100%; padding: 10px; border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.1); color: #fff; font-size: 16px;
+        }
         
         /* Search Section */
         .search-section {
@@ -96,17 +129,48 @@
             color: #fff;
         }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); }
+        .btn-auto {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: #fff;
+            font-size: 18px; padding: 20px 40px;
+        }
+        .btn-auto:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(56, 239, 125, 0.3); }
         .btn-secondary {
             background: rgba(255,255,255,0.1);
             color: #fff;
         }
         .btn-secondary:hover { background: rgba(255,255,255,0.2); }
-        .btn-success {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: #fff;
-        }
         
-        /* Results Grid */
+        /* Progress Panel */
+        .progress-panel {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .progress-step {
+            display: flex; align-items: center; gap: 16px;
+            padding: 16px; background: rgba(255,255,255,0.03);
+            border-radius: 12px; margin-bottom: 12px;
+        }
+        .progress-step.done { border-left: 4px solid #38ef7d; }
+        .progress-step.active { border-left: 4px solid #667eea; background: rgba(102, 126, 234, 0.1); }
+        .progress-step.pending { border-left: 4px solid rgba(255,255,255,0.2); opacity: 0.5; }
+        .step-icon { font-size: 24px; }
+        .step-info { flex: 1; }
+        .step-title { font-weight: 600; margin-bottom: 4px; }
+        .step-desc { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .spinner {
+            display: inline-block; width: 24px; height: 24px;
+            border: 3px solid rgba(255,255,255,0.2);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
+        /* Results */
         .results-section { margin-bottom: 30px; }
         .section-header {
             display: flex; justify-content: space-between; align-items: center;
@@ -153,13 +217,33 @@
             font-size: 13px;
             margin-bottom: 16px;
         }
-        .video-actions { display: flex; gap: 10px; }
-        .btn-small {
-            flex: 1; padding: 10px;
-            font-size: 13px;
-        }
         
-        /* Downloads Section */
+        /* Segment Cards */
+        .segment-card {
+            background: rgba(56, 239, 125, 0.1);
+            border: 1px solid rgba(56, 239, 125, 0.3);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+        .segment-header {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 8px;
+        }
+        .segment-speaker { font-weight: 600; color: #38ef7d; }
+        .segment-confidence {
+            background: rgba(56, 239, 125, 0.2);
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+        }
+        .segment-time {
+            font-size: 14px; color: rgba(255,255,255,0.6);
+            margin-bottom: 8px;
+        }
+        .segment-title { font-size: 13px; color: rgba(255,255,255,0.5); }
+        
+        /* Downloads */
         .downloads-section {
             background: rgba(255,255,255,0.05);
             border-radius: 20px;
@@ -199,48 +283,12 @@
         }
         .empty-icon { font-size: 64px; margin-bottom: 16px; }
         
-        /* Diarization Panel */
-        .diarize-panel {
-            background: rgba(255,255,255,0.03);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-        }
-        .confidence-slider {
-            display: flex; align-items: center; gap: 16px;
-            margin: 20px 0;
-        }
-        .slider { flex: 1; -webkit-appearance: none; height: 6px; border-radius: 3px; background: rgba(255,255,255,0.1); outline: none; }
-        .slider::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: #667eea; cursor: pointer; }
-        .confidence-value { font-weight: 600; color: #667eea; min-width: 50px; }
-        
-        /* Segment List */
-        .segment-card {
-            background: rgba(102, 126, 234, 0.1);
-            border: 1px solid rgba(102, 126, 234, 0.3);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-        }
-        .segment-header { display: flex; justify-content: space-between; margin-bottom: 8px; }
-        .segment-speaker { font-weight: 600; color: #667eea; }
-        .segment-confidence { background: rgba(102, 126, 234, 0.2); padding: 4px 10px; border-radius: 12px; font-size: 12px; }
-        .segment-time { font-size: 14px; color: rgba(255,255,255,0.6); }
-        
-        /* Spinner */
-        .spinner {
-            display: inline-block; width: 20px; height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); }
-        
         /* Responsive */
         @media (max-width: 768px) {
             .modes-grid { grid-template-columns: 1fr; }
             .search-form { flex-direction: column; }
+            .settings-grid { grid-template-columns: 1fr; }
+            .auto-flow { flex-direction: column; }
         }
     </style>
 </head>
@@ -251,35 +299,91 @@
                 <div class="logo-icon">🎙️</div>
                 <div>
                     <h1>Speech Extractor</h1>
-                    <span>Extract • Batch • Diarize</span>
+                    <span>Extract • Batch • Auto Diarize</span>
                 </div>
             </div>
         </header>
 
         <!-- Mode Selection -->
         <div class="modes-grid">
-            <div class="mode-card active" onclick="showMode(1)" id="mode1">
+            <div class="mode-card" onclick="showMode(1)" id="mode1">
                 <div class="mode-icon">📥</div>
                 <h3>Extract Audio</h3>
                 <p>Download audio from a single video as WAV</p>
-                <span class="mode-badge">Single Video</span>
             </div>
             <div class="mode-card" onclick="showMode(2)" id="mode2">
                 <div class="mode-icon">📚</div>
                 <h3>Batch Extract</h3>
                 <p>Download audio from multiple videos at once</p>
-                <span class="mode-badge">Multiple Videos</span>
             </div>
-            <div class="mode-card" onclick="showMode(3)" id="mode3">
-                <div class="mode-icon">🎯</div>
-                <h3>Diarize & Extract</h3>
-                <p>Run speaker diarization, extract high-confidence segments</p>
-                <span class="mode-badge">Speaker Detection</span>
+            <div class="mode-card active" onclick="showMode(3)" id="mode3">
+                <div class="mode-icon">🚀</div>
+                <h3>🚀 AUTO Diarize</h3>
+                <p>Fully automatic: search, download, diarize, extract confident segments</p>
+                <span class="mode-badge auto">RECOMMENDED</span>
+            </div>
+        </div>
+
+        <!-- Mode 3: AUTO (Default) -->
+        <div class="panel active" id="panel3">
+            <div class="auto-panel">
+                <h2 style="margin-bottom: 16px;">🚀 Fully Automatic Pipeline</h2>
+                <p style="color: rgba(255,255,255,0.6); margin-bottom: 16px;">
+                    Enter a name and we'll automatically find short videos, download them, run speaker diarization, and extract high-confidence segments.
+                </p>
+                
+                <div class="auto-flow">
+                    <div class="flow-step">🔍 Search</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">📥 Download</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">🎯 Diarize</div>
+                    <span class="flow-arrow">→</span>
+                    <div class="flow-step">✂️ Extract</div>
+                </div>
+                
+                <form onsubmit="startAuto(event)">
+                    <input type="text" class="search-input" id="autoQuery" placeholder="Enter person name (e.g., Barack Obama, Steve Jobs)" style="margin-bottom: 16px;" />
+                    
+                    <div class="settings-grid">
+                        <div class="setting-item">
+                            <label>Max Videos</label>
+                            <input type="number" id="maxVideos" value="3" min="1" max="10" />
+                        </div>
+                        <div class="setting-item">
+                            <label>Max Duration (minutes)</label>
+                            <input type="number" id="maxDuration" value="10" min="1" max="60" />
+                        </div>
+                        <div class="setting-item">
+                            <label>Min Confidence</label>
+                            <input type="number" id="minConfidence" value="0.85" min="0.5" max="1.0" step="0.05" />
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-auto" style="width: 100%; margin-top: 20px;">
+                        🚀 RUN AUTO DIARIZATION
+                    </button>
+                </form>
+            </div>
+            
+            <!-- Progress Panel -->
+            <div class="progress-panel" id="progressPanel" style="display: none;">
+                <h3 style="margin-bottom: 20px;">📊 Processing Status</h3>
+                <div id="progressSteps"></div>
+            </div>
+            
+            <!-- Results Panel -->
+            <div class="downloads-section" id="autoResults" style="display: none;">
+                <div class="section-header">
+                    <h2>🎯 High-Confidence Segments</h2>
+                    <span id="segmentCount"></span>
+                </div>
+                <div id="segmentsList"></div>
             </div>
         </div>
 
         <!-- Mode 1: Extract Single -->
-        <div class="panel active" id="panel1">
+        <div class="panel" id="panel1">
             <section class="search-section">
                 <h2>📥 Extract Single Video</h2>
                 <form class="search-form" onsubmit="searchSingle(event)">
@@ -294,46 +398,15 @@
             <section class="search-section">
                 <h2>📚 Batch Extract Multiple Videos</h2>
                 <form class="search-form" onsubmit="searchBatch(event)">
-                    <input type="text" class="search-input" id="batchQuery" placeholder="Search for a person (e.g., Barack Obama, Steve Jobs)" />
+                    <input type="text" class="search-input" id="batchQuery" placeholder="Search for a person..." />
                     <button type="submit" class="btn btn-primary">Find & Download</button>
                 </form>
             </section>
             <section class="results-section">
                 <div class="section-header">
-                    <h2>📺 Selected Videos</h2>
-                    <button class="btn btn-success btn-small" onclick="downloadSelected()">Download All</button>
+                    <h2>📺 Videos Found</h2>
                 </div>
                 <div class="results-grid" id="batchResults"></div>
-            </section>
-        </div>
-
-        <!-- Mode 3: Diarize -->
-        <div class="panel" id="panel3">
-            <section class="search-section">
-                <h2>🎯 Diarize & Extract Segments</h2>
-                <form class="search-form" onsubmit="startDiarization(event)">
-                    <input type="text" class="search-input" id="diarizeQuery" placeholder="Search for a person..." />
-                    <button type="submit" class="btn btn-primary">Start Diarization</button>
-                </form>
-                <div class="diarize-panel">
-                    <div class="confidence-slider">
-                        <span>Min Confidence:</span>
-                        <input type="range" class="slider" id="confidence" min="0.5" max="1.0" step="0.05" value="0.9" oninput="updateConfidence(this.value)" />
-                        <span class="confidence-value" id="confidenceValue">0.90</span>
-                    </div>
-                    <p style="color: rgba(255,255,255,0.5); font-size: 14px;">
-                        Only segments with confidence ≥ threshold will be extracted
-                    </p>
-                </div>
-            </section>
-            <section class="downloads-section" id="diarizeResults">
-                <div class="section-header">
-                    <h2>🎯 Diarization Results</h2>
-                </div>
-                <div class="empty-state">
-                    <div class="empty-icon">🎯</div>
-                    <p>Run diarization to see speaker segments</p>
-                </div>
             </section>
         </div>
 
@@ -346,24 +419,23 @@
             <div id="downloadsList">
                 <div class="empty-state">
                     <div class="empty-icon">📭</div>
-                    <p>No downloads yet. Start by searching above!</p>
+                    <p>No downloads yet. Start by entering a name above!</p>
                 </div>
             </div>
         </section>
     </div>
 
     <script>
-        let currentMode = 1;
+        let currentMode = 3;
         let downloads = [];
-        let selectedVideos = [];
         
         // Demo data
         const demoVideos = [
             { id: '1', title: 'Keynote Speech - Full Address', duration: '45:30', durationSec: 2730 },
-            { id: '2', title: 'Interview Discussion', duration: '32:15', durationSec: 1935 },
-            { id: '3', title: 'Public Talk at Conference', duration: '58:00', durationSec: 3480 },
+            { id: '2', title: 'Interview Discussion', duration: '8:15', durationSec: 495 },
+            { id: '3', title: 'Short Talk Highlights', duration: '5:30', durationSec: 330 },
             { id: '4', title: 'Commencement Address', duration: '28:45', durationSec: 1725 },
-            { id: '5', title: 'Panel Discussion', duration: '1:15:00', durationSec: 4500 },
+            { id: '5', title: 'Quick Update', duration: '3:45', durationSec: 225 },
         ];
 
         function showMode(mode) {
@@ -376,8 +448,157 @@
             });
         }
 
-        function updateConfidence(value) {
-            document.getElementById('confidenceValue').textContent = parseFloat(value).toFixed(2);
+        // AUTO MODE
+        function startAuto(e) {
+            e.preventDefault();
+            const query = document.getElementById('autoQuery').value.trim();
+            if (!query) return;
+            
+            const maxVideos = document.getElementById('maxVideos').value;
+            const maxDuration = document.getElementById('maxDuration').value;
+            const minConf = document.getElementById('minConfidence').value;
+            
+            const progressPanel = document.getElementById('progressPanel');
+            const autoResults = document.getElementById('autoResults');
+            progressPanel.style.display = 'block';
+            autoResults.style.display = 'none';
+            
+            // Show progress steps
+            document.getElementById('progressSteps').innerHTML = `
+                <div class="progress-step active">
+                    <div class="step-icon">🔍</div>
+                    <div class="step-info">
+                        <div class="step-title">Searching for "${query}"</div>
+                        <div class="step-desc">Finding short videos under ${maxDuration} minutes</div>
+                    </div>
+                    <div class="spinner"></div>
+                </div>
+                <div class="progress-step pending">
+                    <div class="step-icon">📥</div>
+                    <div class="step-info">
+                        <div class="step-title">Waiting...</div>
+                        <div class="step-desc">Download will start after search</div>
+                    </div>
+                </div>
+                <div class="progress-step pending">
+                    <div class="step-icon">🎯</div>
+                    <div class="step-info">
+                        <div class="step-title">Waiting...</div>
+                        <div class="step-desc">Speaker diarization pending</div>
+                    </div>
+                </div>
+                <div class="progress-step pending">
+                    <div class="step-icon">✂️</div>
+                    <div class="step-info">
+                        <div class="step-title">Waiting...</div>
+                        <div class="step-desc">Extracting segments</div>
+                    </div>
+                </div>
+            `;
+            
+            // Simulate the full pipeline
+            setTimeout(() => {
+                updateProgress(1, 'done', '📺', `Found 3 short videos for "${query}"`);
+                
+                setTimeout(() => {
+                    updateProgress(2, 'active', '📥', 'Downloading 3 videos...');
+                    downloadDemoFiles(query, ['Video 1', 'Video 2', 'Video 3']);
+                    
+                    setTimeout(() => {
+                        updateProgress(2, 'done', '✅', 'Downloaded 3/3 videos');
+                        
+                        setTimeout(() => {
+                            updateProgress(3, 'active', '🎯', `Running speaker diarization... (min ${minConf} confidence)`);
+                            
+                            setTimeout(() => {
+                                updateProgress(3, 'done', '✅', 'Diarization complete');
+                                updateProgress(4, 'active', '✂️', 'Extracting high-confidence segments...');
+                                
+                                setTimeout(() => {
+                                    updateProgress(4, 'done', '✅', 'Extracted 7 segments');
+                                    showAutoResults(query);
+                                }, 1500);
+                            }, 2500);
+                        }, 1000);
+                    }, 3000);
+                }, 500);
+            }, 1500);
+        }
+
+        function updateProgress(step, status, icon, desc) {
+            const steps = document.querySelectorAll('.progress-step');
+            if (steps[step - 1]) {
+                steps[step - 1].className = `progress-step ${status}`;
+                steps[step - 1].querySelector('.step-icon').textContent = icon;
+                steps[step - 1].querySelector('.step-desc').textContent = desc;
+                if (status === 'active') {
+                    steps[step - 1].innerHTML += '<div class="spinner"></div>';
+                }
+            }
+        }
+
+        function downloadDemoFiles(query, names) {
+            names.forEach((name, i) => {
+                setTimeout(() => {
+                    const download = {
+                        id: Date.now() + i,
+                        name: `${query} - ${name}`,
+                        status: 'Downloading...',
+                        progress: 0
+                    };
+                    downloads.unshift(download);
+                    updateDownloadsList();
+                    simulateDownload(download.id);
+                }, i * 800);
+            });
+        }
+
+        function showAutoResults(query) {
+            const container = document.getElementById('autoResults');
+            const segmentsList = document.getElementById('segmentsList');
+            const count = document.getElementById('segmentCount');
+            
+            const speakers = ['Target Speaker', 'Interviewer', 'Host'];
+            const segments = [];
+            
+            for (let i = 0; i < 7; i++) {
+                const start = Math.floor(Math.random() * 300);
+                const end = start + Math.floor(Math.random() * 60) + 30;
+                segments.push({
+                    speaker: speakers[Math.floor(Math.random() * speakers.length)],
+                    start: start,
+                    end: end,
+                    confidence: (0.85 + Math.random() * 0.14).toFixed(2),
+                    title: `${query} - Video ${Math.floor(Math.random() * 3) + 1}`
+                });
+            }
+            
+            // Sort by confidence
+            segments.sort((a, b) => parseFloat(b.confidence) - parseFloat(a.confidence));
+            
+            container.style.display = 'block';
+            count.textContent = `${segments.length} segments found`;
+            
+            segmentsList.innerHTML = segments.map(s => {
+                const conf = parseFloat(s.confidence);
+                const isTarget = s.speaker === 'Target Speaker';
+                return `
+                    <div class="segment-card" style="${isTarget ? 'border-color: #38ef7d;' : ''}">
+                        <div class="segment-header">
+                            <span class="segment-speaker">${isTarget ? '🎯 ' : ''}${s.speaker}</span>
+                            <span class="segment-confidence">${(conf * 100).toFixed(0)}% confident</span>
+                        </div>
+                        <div class="segment-time">${formatTime(s.start)} - ${formatTime(s.end)} (${s.end - s.start}s)</div>
+                        <div class="segment-title">${s.title}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60);
+            const s = seconds % 60;
+            return `${m}:${s.toString().padStart(2, '0')}`;
         }
 
         function searchSingle(e) {
@@ -415,23 +636,11 @@
                             <span>⏱️ ${video.duration}</span>
                         </div>
                         <div class="video-actions">
-                            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer;">
-                                <input type="checkbox" onchange="toggleSelect('${video.id}', this.checked)" />
-                                <span>Select</span>
-                            </label>
-                            <button class="btn btn-success btn-small" onclick="quickDownload('${video.title}')">⬇️</button>
+                            <button class="btn btn-success btn-small" onclick="quickDownload('${video.title}')">⬇️ Download</button>
                         </div>
                     </div>
                 </div>
             `).join('');
-        }
-
-        function toggleSelect(id, checked) {
-            if (checked && !selectedVideos.includes(id)) {
-                selectedVideos.push(id);
-            } else if (!checked) {
-                selectedVideos = selectedVideos.filter(v => v !== id);
-            }
         }
 
         function quickDownload(title) {
@@ -444,82 +653,6 @@
             downloads.unshift(download);
             updateDownloadsList();
             simulateDownload(download.id);
-        }
-
-        function downloadSelected() {
-            if (selectedVideos.length === 0) {
-                alert('Please select videos first');
-                return;
-            }
-            
-            selectedVideos.forEach((id, i) => {
-                setTimeout(() => {
-                    const video = demoVideos.find(v => v.id === id);
-                    if (video) {
-                        quickDownload(video.title);
-                    }
-                }, i * 500);
-            });
-        }
-
-        function startDiarization(e) {
-            e.preventDefault();
-            const query = document.getElementById('diarizeQuery').value.trim();
-            if (!query) return;
-            
-            const container = document.getElementById('diarizeResults');
-            container.innerHTML = `
-                <div class="section-header">
-                    <h2>🎯 Diarization Results - ${query}</h2>
-                </div>
-                <div style="text-align: center; padding: 40px;">
-                    <div class="spinner" style="width: 40px; height: 40px; margin: 0 auto 20px;"></div>
-                    <p>Running speaker diarization on ${demoVideos.length} videos...</p>
-                    <p style="color: rgba(255,255,255,0.5); font-size: 14px; margin-top: 8px;">
-                        This may take a few minutes
-                    </p>
-                </div>
-            `;
-            
-            // Simulate results after delay
-            setTimeout(() => {
-                const speakers = ['Speaker A', 'Speaker B', 'Target'];
-                const segments = [];
-                
-                for (let i = 0; i < 8; i++) {
-                    segments.push({
-                        speaker: speakers[Math.floor(Math.random() * speakers.length)],
-                        start: Math.floor(Math.random() * 500),
-                        end: Math.floor(Math.random() * 500) + 500,
-                        confidence: (0.85 + Math.random() * 0.14).toFixed(2)
-                    });
-                }
-                
-                container.innerHTML = `
-                    <div class="section-header">
-                        <h2>🎯 Diarization Results - ${query}</h2>
-                        <span style="color: rgba(255,255,255,0.5);">${segments.length} high-confidence segments found</span>
-                    </div>
-                    ${segments.map((s, i) => `
-                        <div class="segment-card">
-                            <div class="segment-header">
-                                <span class="segment-speaker">${s.speaker}</span>
-                                <span class="segment-confidence">${(parseFloat(s.confidence) * 100).toFixed(0)}% confident</span>
-                            </div>
-                            <div class="segment-time">${formatTime(s.start)} - ${formatTime(s.end)} (${(s.end - s.start)}s)</div>
-                            <div class="video-actions" style="margin-top: 12px;">
-                                <button class="btn btn-success btn-small">⬇️ Extract Segment</button>
-                            </div>
-                        </div>
-                    `).join('')}
-                `;
-            }, 3000);
-        }
-
-        function formatTime(seconds) {
-            const m = Math.floor(seconds / 60);
-            const s = seconds % 60;
-            return `${m}:${s.toString().padStart(2, '0')}`;
         }
 
         function simulateDownload(id) {
@@ -546,7 +679,7 @@
                 container.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-icon">📭</div>
-                        <p>No downloads yet. Start by searching above!</p>
+                        <p>No downloads yet. Start by entering a name above!</p>
                     </div>
                 `;
                 return;

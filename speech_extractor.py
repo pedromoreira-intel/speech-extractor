@@ -4,7 +4,7 @@ Speech Extractor - Extracts speech from public figures via YouTube
 Three modes:
   1. Extract: Download audio from a single video
   2. Batch Extract: Download audio from multiple videos
-  3. Diarize: Run speaker diarization on multiple videos, extract high-confidence segments
+  3. Auto Diarize: FULL AUTO - search short videos, download, diarize, extract confident segments
 
 Usage:
   # Interactive mode (menu):
@@ -16,12 +16,13 @@ Usage:
   # Batch extract:
   python speech_extractor.py "Barack Obama" --batch --max 10
   
-  # Diarization on multiple videos:
-  python speech_extractor.py "Barack Obama" --diarize --max 5
+  # AUTO: Fully automatic - finds short videos, downloads, diarizes, extracts confident segments:
+  python speech_extractor.py "Barack Obama" --auto --max 3
+  python speech_extractor.py "Barack Obama" --auto --max 3 --max-duration 600 --min-confidence 0.85
 
 Requirements:
   pip install yt-dlp pyannote.audio torch whisper
-  
+
   # For pyannote, you may need:
   pip install pyannote-audio
 """
@@ -288,20 +289,23 @@ def interactive_menu():
     print("2. 📚 Batch Extract")
     print("   Download audio from multiple videos")
     print()
-    print("3. 🎯 Diarize & Extract")
-    print("   Run speaker diarization, extract high-confidence segments")
+    print("3. 🚀 AUTO Diarize (RECOMMENDED)")
+    print("   Fully automatic: finds short videos, downloads, diarizes, extracts segments")
     print()
-    print("4. ❌ Exit")
+    print("4. 🎯 Manual Diarize")
+    print("   Run diarization with full control over settings")
+    print()
+    print("5. ❌ Exit")
     print()
     
     while True:
         try:
-            choice = input("Enter option (1-4): ").strip()
-            if choice in ['1', '2', '3', '4']:
+            choice = input("Enter option (1-5): ").strip()
+            if choice in ['1', '2', '3', '4', '5']:
                 return int(choice)
-            print("Invalid choice. Enter 1-4:")
+            print("Invalid choice. Enter 1-5:")
         except (EOFError, KeyboardInterrupt):
-            return 4
+            return 5
 
 
 def mode_extract():
@@ -463,6 +467,151 @@ def mode_diarize():
     print(f"{'='*60}")
 
 
+def mode_auto():
+    """AUTO MODE: Fully automatic - search, download, diarize, extract all in one go."""
+    parser = argparse.ArgumentParser(description="Fully automatic diarization pipeline")
+    parser.add_argument("name", nargs="?", help="Person to search for")
+    parser.add_argument("--max", type=int, default=3, help="Max videos to process (default: 3)")
+    parser.add_argument("--max-duration", type=int, default=600, help="Max video duration in seconds (default: 600 = 10 min)")
+    parser.add_argument("--min-confidence", type=float, default=0.85, help="Min confidence threshold (default: 0.85)")
+    parser.add_argument("--output", default="./auto_output", help="Output directory")
+    
+    if len(sys.argv) == 1:
+        search_name = input("\n🔍 Search for (person name): ").strip()
+        max_videos = input("📚 Max videos [3]: ").strip()
+        max_videos = int(max_videos) if max_videos.isdigit() else 3
+        max_duration = input("⏱️ Max duration in minutes [10]: ").strip()
+        max_duration = int(max_duration) * 60 if max_duration.isdigit() else 600
+        output_dir = input("📁 Output directory [./auto_output]: ").strip() or "./auto_output"
+    else:
+        args = parser.parse_args()
+        search_name = args.name
+        max_videos = args.max
+        max_duration = args.max_duration
+        min_confidence = args.min_confidence
+        output_dir = args.output
+    
+    if not search_name:
+        print("❌ Please provide a name to search for")
+        return
+    
+    print(f"\n{'='*60}")
+    print("🚀 AUTO MODE - Fully Automatic Pipeline")
+    print(f"{'='*60}")
+    print(f"Person: {search_name}")
+    print(f"Max videos: {max_videos}")
+    print(f"Max duration: {max_duration // 60} min")
+    print(f"Min confidence: {args.min_confidence if 'args' in dir() else min_confidence}")
+    print(f"{'='*60}\n")
+    
+    # Step 1: Search for SHORT videos only
+    print("📺 STEP 1: Searching for short videos...")
+    search_query = f"ytsearch{max_videos * 2}:{search_name} speech OR interview OR talk"
+    
+    cmd = [
+        "yt-dlp",
+        "--flat-playlist",
+        "--print", "%(id)s\t%(title)s\t%(duration)s",
+        search_query
+    ]
+    
+    try:
+        result = subprocess.run(cmd, capture_output=True, text=True, check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"❌ Search failed: {e}")
+        return
+    
+    videos = []
+    for line in result.stdout.strip().split('\n'):
+        if line:
+            parts = line.split('\t')
+            if len(parts) >= 3:
+                try:
+                    duration = int(parts[2]) if parts[2].isdigit() else 999999
+                    if duration <= max_duration:
+                        videos.append({
+                            'id': parts[0],
+                            'url': f"https://www.youtube.com/watch?v={parts[0]}",
+                            'title': parts[1],
+                            'duration': duration
+                        })
+                        if len(videos) >= max_videos:
+                            break
+                except:
+                    pass
+    
+    if not videos:
+        print("❌ No short videos found. Try increasing max duration.")
+        return
+    
+    print(f"✅ Found {len(videos)} short videos:\n")
+    for i, v in enumerate(videos, 1):
+        print(f"  [{i}] {v['title'][:50]}")
+        print(f"      {v['duration'] // 60}:{v['duration'] % 60:02d} | {v['url']}")
+    
+    # Step 2: Download all videos automatically
+    print(f"\n📥 STEP 2: Downloading {len(videos)} videos...")
+    audio_dir = f"/tmp/{sanitize_filename(search_name)}_audio"
+    Path(audio_dir).mkdir(parents=True, exist_ok=True)
+    
+    downloaded = download_multiple_audios(videos, audio_dir, search_name)
+    
+    if not downloaded:
+        print("❌ No files downloaded")
+        return
+    
+    print(f"\n✅ Downloaded {len(downloaded)}/{len(videos)} files")
+    
+    # Step 3: Run diarization on all files
+    print(f"\n🎯 STEP 3: Running speaker diarization on {len(downloaded)} files...")
+    min_conf = args.min_confidence if 'args' in dir() else min_confidence
+    results = run_diarization(downloaded, output_dir, min_conf)
+    
+    if 'error' in results:
+        print(f"❌ Diarization failed: {results['error']}")
+        # Still save downloaded info
+        output_dir_path = Path(output_dir)
+        output_dir_path.mkdir(parents=True, exist_ok=True)
+        json_file = output_dir_path / f"{sanitize_filename(search_name)}_downloaded.json"
+        export_segments_json({'downloaded': downloaded, 'error': results['error']}, str(json_file))
+        return
+    
+    # Step 4: Extract high-confidence segments
+    print(f"\n✂️ STEP 4: Extracting high-confidence segments...")
+    segments_dir = Path(output_dir) / "segments"
+    segments_dir.mkdir(parents=True, exist_ok=True)
+    extracted = extract_high_confidence_segments(results, str(segments_dir))
+    
+    # Step 5: Export results
+    output_dir_path = Path(output_dir)
+    output_dir_path.mkdir(parents=True, exist_ok=True)
+    json_file = output_dir_path / f"{sanitize_filename(search_name)}_auto_results.json"
+    export_segments_json(results, str(json_file))
+    
+    # Summary
+    print(f"\n{'='*60}")
+    print("✅ AUTO MODE COMPLETE")
+    print(f"{'='*60}")
+    print(f"Videos searched: {len(videos)}")
+    print(f"Videos downloaded: {len(downloaded)}")
+    print(f"High-confidence segments found: {results['summary']['total_segments']}")
+    print(f"Unique speakers detected: {len(results['summary']['speakers'])}")
+    print(f"Audio segments extracted: {len(extracted)}")
+    print(f"\n📁 Output: {output_dir}")
+    print(f"📄 Results JSON: {json_file}")
+    print(f"🎵 Extracted audio: {segments_dir}/")
+    print(f"{'='*60}\n")
+    
+    # Show top confident segments
+    if results.get('segments'):
+        print("🎯 TOP HIGH-CONFIDENCE SEGMENTS:")
+        sorted_segments = sorted(results['segments'], key=lambda x: x.get('confidence', 0), reverse=True)[:10]
+        for i, seg in enumerate(sorted_segments, 1):
+            conf_pct = (seg.get('confidence', 0) * 100)
+            print(f"  {i}. [{conf_pct:.0f}%] {seg.get('speaker', 'Unknown')}: {seg.get('start', 0):.0f}s - {seg.get('end', 0):.0f}s")
+            print(f"     {seg.get('title', '')[:60]}")
+
+
 def main():
     # Check for direct mode arguments
     if len(sys.argv) > 1:
@@ -475,9 +624,11 @@ def main():
             mode_batch()
         elif sys.argv[1] == '--diarize':
             mode_diarize()
+        elif sys.argv[1] == '--auto':
+            mode_auto()
         else:
-            # Assume it's a name for batch mode
-            mode_batch()
+            # Assume it's a name for auto mode (fully automatic)
+            mode_auto()
         return
     
     # Interactive mode
@@ -489,8 +640,10 @@ def main():
         elif choice == 2:
             mode_batch()
         elif choice == 3:
-            mode_diarize()
+            mode_auto()
         elif choice == 4:
+            mode_diarize()
+        elif choice == 5:
             print("\n👋 Goodbye!")
             break
         
