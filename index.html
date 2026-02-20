@@ -12,9 +12,8 @@
             min-height: 100vh;
             color: #fff;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; }
         
-        /* Header */
         header {
             display: flex; align-items: center; justify-content: space-between;
             padding: 20px 0; border-bottom: 1px solid rgba(255,255,255,0.1);
@@ -29,287 +28,121 @@
             font-size: 28px;
         }
         .logo h1 { font-size: 28px; font-weight: 700; }
-        .logo span { font-size: 14px; color: rgba(255,255,255,0.5); display: block; margin-top: 2px; }
+        .logo span { font-size: 13px; color: rgba(255,255,255,0.5); display: block; }
         
-        /* Mode Cards */
-        .modes-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 30px;
-        }
-        .mode-card {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 28px;
-            border: 2px solid rgba(255,255,255,0.1);
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        .mode-card:hover { transform: translateY(-4px); border-color: rgba(102, 126, 234, 0.5); }
-        .mode-card.active { border-color: #667eea; background: rgba(102, 126, 234, 0.1); }
-        .mode-icon { font-size: 40px; margin-bottom: 16px; }
-        .mode-card h3 { font-size: 20px; margin-bottom: 8px; }
-        .mode-card p { font-size: 14px; color: rgba(255,255,255,0.6); line-height: 1.5; }
-        .mode-badge {
-            display: inline-block; background: rgba(102, 126, 234, 0.2);
-            color: #667eea; padding: 4px 12px; border-radius: 20px;
-            font-size: 12px; margin-top: 12px;
-        }
-        .mode-badge.auto { background: rgba(17, 153, 142, 0.2); color: #38ef7d; }
-        
-        /* Panels */
-        .panel { display: none; }
-        .panel.active { display: block; }
-        
-        /* Auto Panel */
-        .auto-panel {
-            background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 2px solid rgba(56, 239, 125, 0.3);
-        }
-        .auto-flow {
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            margin: 24px 0; flex-wrap: wrap;
-        }
-        .flow-step {
-            background: rgba(255,255,255,0.1);
-            padding: 12px 20px;
+        .info-banner {
+            background: rgba(255, 193, 7, 0.15);
+            border: 1px solid rgba(255, 193, 7, 0.3);
             border-radius: 12px;
-            font-size: 14px;
+            padding: 16px 20px;
+            margin-bottom: 24px;
+            display: flex; align-items: center; gap: 12px;
         }
-        .flow-arrow { color: rgba(56, 239, 125, 0.7); font-size: 20px; }
+        .info-banner .icon { font-size: 24px; }
+        .info-banner .text { flex: 1; }
+        .info-banner .text strong { color: #ffc107; }
         
-        /* Settings Grid */
-        .settings-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 20px;
-        }
-        .setting-item { background: rgba(255,255,255,0.05); padding: 16px; border-radius: 12px; }
-        .setting-item label { display: block; font-size: 13px; color: rgba(255,255,255,0.6); margin-bottom: 8px; }
-        .setting-item input {
-            width: 100%; padding: 10px; border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.2);
-            background: rgba(255,255,255,0.1); color: #fff; font-size: 16px;
-        }
-        
-        /* Search Section */
         .search-section {
             background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 24px;
             border: 1px solid rgba(255,255,255,0.1);
         }
-        .search-section h2 { margin-bottom: 20px; font-size: 20px; }
+        .search-section h2 { margin-bottom: 16px; font-size: 18px; }
         .search-form { display: flex; gap: 12px; }
         .search-input {
             flex: 1;
-            padding: 16px 20px;
-            border-radius: 12px;
+            padding: 14px 18px;
+            border-radius: 10px;
             border: 2px solid rgba(255,255,255,0.1);
             background: rgba(255,255,255,0.05);
             color: #fff;
             font-size: 16px;
             outline: none;
-            transition: all 0.3s;
         }
         .search-input:focus { border-color: #667eea; }
-        .search-input::placeholder { color: rgba(255,255,255,0.5); }
         .btn {
-            padding: 16px 32px;
-            border-radius: 12px;
+            padding: 14px 28px;
+            border-radius: 10px;
             border: none;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
         }
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
-        }
-        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3); }
-        .btn-auto {
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            color: #fff;
-            font-size: 18px; padding: 20px 40px;
-        }
-        .btn-auto:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(56, 239, 125, 0.3); }
-        .btn-secondary {
-            background: rgba(255,255,255,0.1);
-            color: #fff;
-        }
-        .btn-secondary:hover { background: rgba(255,255,255,0.2); }
+        .btn-primary { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #fff; }
+        .btn-copy { background: rgba(56, 239, 125, 0.2); color: #38ef7d; border: 1px solid rgba(56, 239, 125, 0.3); }
+        .btn-copy:hover { background: rgba(56, 239, 125, 0.3); }
         
-        /* Progress Panel */
-        .progress-panel {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .main-progress-bar {
-            height: 12px;
-            background: rgba(255,255,255,0.1);
-            border-radius: 6px;
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
-        .main-progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #11998e 0%, #38ef7d 100%);
-            border-radius: 6px;
-            transition: width 0.5s ease;
-            width: 0%;
-        }
-        .progress-percent {
-            text-align: center;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: #38ef7d;
-        }
-        .progress-step {
-            display: flex; align-items: center; gap: 16px;
-            padding: 16px; background: rgba(255,255,255,0.03);
-            border-radius: 12px; margin-bottom: 12px;
-        }
-        .progress-step.done { border-left: 4px solid #38ef7d; }
-        .progress-step.active { border-left: 4px solid #667eea; background: rgba(102, 126, 234, 0.1); }
-        .progress-step.pending { border-left: 4px solid rgba(255,255,255,0.2); opacity: 0.5; }
-        .step-icon { font-size: 24px; }
-        .step-info { flex: 1; }
-        .step-title { font-weight: 600; margin-bottom: 4px; }
-        .step-desc { font-size: 13px; color: rgba(255,255,255,0.5); }
-        .spinner {
-            display: inline-block; width: 24px; height: 24px;
-            border: 3px solid rgba(255,255,255,0.2);
-            border-top-color: #667eea;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-        
-        /* Results */
         .results-section { margin-bottom: 30px; }
         .section-header {
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 16px;
         }
+        .section-header h2 { font-size: 18px; }
+        
         .results-grid {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 20px;
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px;
         }
         .video-card {
             background: rgba(255,255,255,0.05);
-            border-radius: 16px;
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s;
         }
-        .video-card:hover { transform: translateY(-4px); border-color: rgba(102, 126, 234, 0.5); }
         .video-thumbnail {
-            height: 160px;
+            height: 100px;
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             display: flex; align-items: center; justify-content: center;
-            font-size: 48px;
+            font-size: 36px;
             color: rgba(255,255,255,0.3);
             position: relative;
         }
         .video-duration {
-            position: absolute; bottom: 12px; right: 12px;
+            position: absolute; bottom: 8px; right: 8px;
             background: rgba(0,0,0,0.8);
-            padding: 4px 8px;
+            padding: 3px 7px;
             border-radius: 4px;
-            font-size: 12px;
+            font-size: 11px;
         }
-        .video-info { padding: 20px; }
-        .video-title {
-            font-size: 15px; font-weight: 600;
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+        .video-info { padding: 14px; }
+        .video-title { font-size: 14px; font-weight: 600; margin-bottom: 6px; }
+        .video-url { 
+            font-size: 11px; color: rgba(255,255,255,0.4); 
+            word-break: break-all; margin-bottom: 10px;
         }
-        .video-meta {
-            display: flex; gap: 16px;
-            color: rgba(255,255,255,0.5);
-            font-size: 13px;
-            margin-bottom: 16px;
-        }
+        .video-actions { display: flex; gap: 8px; }
+        .btn-small { flex: 1; padding: 10px; font-size: 12px; }
         
-        /* Segment Cards */
-        .segment-card {
-            background: rgba(56, 239, 125, 0.1);
+        .local-server-section {
+            background: linear-gradient(135deg, rgba(17, 153, 142, 0.1) 0%, rgba(56, 239, 125, 0.1) 100%);
+            border-radius: 16px;
+            padding: 24px;
             border: 1px solid rgba(56, 239, 125, 0.3);
-            border-radius: 12px;
-            padding: 16px;
+            margin-bottom: 24px;
+        }
+        .local-server-section h3 { margin-bottom: 12px; font-size: 18px; }
+        .local-server-section p { color: rgba(255,255,255,0.6); margin-bottom: 16px; font-size: 14px; }
+        .code-block {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-family: monospace;
+            font-size: 13px;
             margin-bottom: 12px;
+            overflow-x: auto;
         }
-        .segment-header {
-            display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 8px;
-        }
-        .segment-speaker { font-weight: 600; color: #38ef7d; }
-        .segment-confidence {
-            background: rgba(56, 239, 125, 0.2);
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 12px;
-        }
-        .segment-time {
-            font-size: 14px; color: rgba(255,255,255,0.6);
-            margin-bottom: 8px;
-        }
-        .segment-title { font-size: 13px; color: rgba(255,255,255,0.5); }
+        .code-block .cmd { color: #38ef7d; }
+        .code-block .comment { color: rgba(255,255,255,0.4); }
         
-        /* Downloads */
-        .downloads-section {
-            background: rgba(255,255,255,0.05);
-            border-radius: 20px;
-            padding: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-        .download-item {
-            display: flex; align-items: center; gap: 16px;
-            padding: 16px;
-            background: rgba(255,255,255,0.03);
-            border-radius: 12px;
-            margin-bottom: 12px;
-        }
-        .download-icon {
-            width: 48px; height: 48px;
-            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-            border-radius: 12px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px;
-        }
-        .download-info { flex: 1; }
-        .download-name { font-weight: 600; margin-bottom: 4px; }
-        .download-status { font-size: 14px; color: rgba(255,255,255,0.5); }
-        .progress-bar {
-            height: 4px; background: rgba(255,255,255,0.1);
-            border-radius: 2px; margin-top: 8px; overflow: hidden;
-        }
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
-            border-radius: 2px;
-            transition: width 0.3s;
-        }
         .empty-state {
-            text-align: center; padding: 60px 20px;
+            text-align: center; padding: 40px;
             color: rgba(255,255,255,0.5);
         }
-        .empty-icon { font-size: 64px; margin-bottom: 16px; }
+        .empty-icon { font-size: 48px; margin-bottom: 12px; }
         
-        /* Responsive */
         @media (max-width: 768px) {
-            .modes-grid { grid-template-columns: 1fr; }
             .search-form { flex-direction: column; }
-            .settings-grid { grid-template-columns: 1fr; }
-            .auto-flow { flex-direction: column; }
         }
     </style>
 </head>
@@ -320,428 +153,110 @@
                 <div class="logo-icon">🎙️</div>
                 <div>
                     <h1>Speech Extractor</h1>
-                    <span>Extract • Batch • Auto Diarize</span>
+                    <span>Find & Copy YouTube URLs</span>
                 </div>
             </div>
         </header>
 
-        <!-- Mode Selection -->
-        <div class="modes-grid">
-            <div class="mode-card" onclick="showMode(1)" id="mode1">
-                <div class="mode-icon">📥</div>
-                <h3>Extract Audio</h3>
-                <p>Download audio from a single video as WAV</p>
-            </div>
-            <div class="mode-card" onclick="showMode(2)" id="mode2">
-                <div class="mode-icon">📚</div>
-                <h3>Batch Extract</h3>
-                <p>Download audio from multiple videos at once</p>
-            </div>
-            <div class="mode-card active" onclick="showMode(3)" id="mode3">
-                <div class="mode-icon">🚀</div>
-                <h3>🚀 AUTO Diarize</h3>
-                <p>Fully automatic: search, download, diarize, extract confident segments</p>
-                <span class="mode-badge auto">RECOMMENDED</span>
+        <div class="info-banner">
+            <div class="icon">ℹ️</div>
+            <div class="text">
+                <strong>Web Demo Mode</strong> - This dashboard finds and displays URLs. 
+                For actual downloads, use the local server or CLI (instructions below).
             </div>
         </div>
 
-        <!-- Mode 3: AUTO (Default) -->
-        <div class="panel active" id="panel3">
-            <div class="auto-panel">
-                <h2 style="margin-bottom: 16px;">🚀 Fully Automatic Pipeline</h2>
-                <p style="color: rgba(255,255,255,0.6); margin-bottom: 16px;">
-                    Enter a name and we'll automatically find short videos, download them, run speaker diarization, and extract high-confidence segments.
-                </p>
-                
-                <div class="auto-flow">
-                    <div class="flow-step">🔍 Search</div>
-                    <span class="flow-arrow">→</span>
-                    <div class="flow-step">📥 Download</div>
-                    <span class="flow-arrow">→</span>
-                    <div class="flow-step">🎯 Diarize</div>
-                    <span class="flow-arrow">→</span>
-                    <div class="flow-step">✂️ Extract</div>
-                </div>
-                
-                <form onsubmit="startAuto(event)">
-                    <input type="text" class="search-input" id="autoQuery" placeholder="Enter person name (e.g., Barack Obama, Steve Jobs)" style="margin-bottom: 16px;" />
-                    
-                    <div class="settings-grid">
-                        <div class="setting-item">
-                            <label>Max Videos</label>
-                            <input type="number" id="maxVideos" value="3" min="1" max="10" />
-                        </div>
-                        <div class="setting-item">
-                            <label>Max Duration (minutes)</label>
-                            <input type="number" id="maxDuration" value="10" min="1" max="60" />
-                        </div>
-                        <div class="setting-item">
-                            <label>Min Confidence</label>
-                            <input type="number" id="minConfidence" value="0.85" min="0.5" max="1.0" step="0.05" />
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn btn-auto" style="width: 100%; margin-top: 20px;">
-                        🚀 RUN AUTO DIARIZATION
-                    </button>
-                </form>
-            </div>
-            
-            <!-- Progress Panel -->
-            <div class="progress-panel" id="progressPanel" style="display: none;">
-                <h3 style="margin-bottom: 20px;">📊 Processing Status</h3>
-                <div class="progress-percent">0%</div>
-                <div class="main-progress-bar">
-                    <div class="main-progress-fill" id="mainProgressFill"></div>
-                </div>
-                <div id="progressSteps"></div>
-            </div>
-            
-            <!-- Results Panel -->
-            <div class="downloads-section" id="autoResults" style="display: none;">
-                <div class="section-header">
-                    <h2>🎯 High-Confidence Segments</h2>
-                    <span id="segmentCount"></span>
-                </div>
-                <div id="segmentsList"></div>
-            </div>
-        </div>
+        <section class="search-section">
+            <h2>🔍 Find Speeches</h2>
+            <form class="search-form" onsubmit="search(event)">
+                <input type="text" class="search-input" id="searchInput" 
+                       placeholder="Search for a person (e.g., Barack Obama, Steve Jobs)" />
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </section>
 
-        <!-- Mode 1: Extract Single -->
-        <div class="panel" id="panel1">
-            <section class="search-section">
-                <h2>📥 Extract Single Video</h2>
-                <form class="search-form" onsubmit="searchSingle(event)">
-                    <input type="text" class="search-input" id="singleUrl" placeholder="Paste YouTube URL or video ID..." />
-                    <button type="submit" class="btn btn-primary">Download WAV</button>
-                </form>
-            </section>
-        </div>
+        <section class="local-server-section">
+            <h3>🚀 Download with Local Server (Recommended)</h3>
+            <p>Run locally to actually download WAV files:</p>
+            <div class="code-block">
+                <span class="comment"># Install requirements</span><br>
+                pip install flask yt-dlp<br><br>
+                <span class="comment"># Start server</span><br>
+                <span class="cmd">python server.py</span><br><br>
+                <span class="comment"># Open in browser</span><br>
+                http://localhost:5000
+            </div>
+            <a href="https://github.com/pedromoreira-intel/speech-extractor" target="_blank" class="btn btn-copy btn-small" style="display: inline-block; text-align: center; text-decoration: none;">
+                📂 View on GitHub
+            </a>
+        </section>
 
-        <!-- Mode 2: Batch Extract -->
-        <div class="panel" id="panel2">
-            <section class="search-section">
-                <h2>📚 Batch Extract Multiple Videos</h2>
-                <form class="search-form" onsubmit="searchBatch(event)">
-                    <input type="text" class="search-input" id="batchQuery" placeholder="Search for a person..." />
-                    <button type="submit" class="btn btn-primary">Find & Download</button>
-                </form>
-            </section>
-            <section class="results-section">
-                <div class="section-header">
-                    <h2>📺 Videos Found</h2>
-                </div>
-                <div class="results-grid" id="batchResults"></div>
-            </section>
-        </div>
-
-        <!-- All Modes: Downloads History -->
-        <section class="downloads-section">
+        <section class="results-section" id="resultsSection" style="display: none;">
             <div class="section-header">
-                <h2>📥 Download History</h2>
-                <button class="btn btn-secondary btn-small" onclick="clearDownloads()">Clear All</button>
+                <h2>📺 Search Results</h2>
+                <span id="resultCount">0 results</span>
             </div>
-            <div id="downloadsList">
-                <div class="empty-state">
-                    <div class="empty-icon">📭</div>
-                    <p>No downloads yet. Start by entering a name above!</p>
-                </div>
-            </div>
+            <div class="results-grid" id="resultsGrid"></div>
         </section>
     </div>
 
     <script>
-        let currentMode = 3;
-        let downloads = [];
-        
-        // Demo data
         const demoVideos = [
-            { id: '1', title: 'Keynote Speech - Full Address', duration: '45:30', durationSec: 2730 },
-            { id: '2', title: 'Interview Discussion', duration: '8:15', durationSec: 495 },
-            { id: '3', title: 'Short Talk Highlights', duration: '5:30', durationSec: 330 },
-            { id: '4', title: 'Commencement Address', duration: '28:45', durationSec: 1725 },
-            { id: '5', title: 'Quick Update', duration: '3:45', durationSec: 225 },
+            { id: 'dQw4w9WgXcQ', title: 'Sample Speech Video', duration: '5:30', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ' },
+            { id: 'abc123', title: 'Interview Discussion', duration: '8:15', url: 'https://www.youtube.com/watch?v=abc123' },
+            { id: 'def456', title: 'Public Talk', duration: '12:45', url: 'https://www.youtube.com/watch?v=def456' },
+            { id: 'ghi789', title: 'Conference Address', duration: '15:20', url: 'https://www.youtube.com/watch?v=ghi789' },
+            { id: 'jkl012', title: 'Keynote Presentation', duration: '6:45', url: 'https://www.youtube.com/watch?v=jkl012' },
         ];
 
-        function showMode(mode) {
-            currentMode = mode;
-            document.querySelectorAll('.mode-card').forEach((card, i) => {
-                card.classList.toggle('active', i + 1 === mode);
-            });
-            document.querySelectorAll('.panel').forEach((panel, i) => {
-                panel.classList.toggle('active', i + 1 === mode);
-            });
-        }
-
-        // AUTO MODE
-        function startAuto(e) {
+        async function search(e) {
             e.preventDefault();
-            const query = document.getElementById('autoQuery').value.trim();
+            const query = document.getElementById('searchInput').value.trim();
             if (!query) return;
             
-            const maxVideos = document.getElementById('maxVideos').value;
-            const maxDuration = document.getElementById('maxDuration').value;
-            const minConf = document.getElementById('minConfidence').value;
+            const btn = e.target.querySelector('button');
+            btn.textContent = 'Searching...';
             
-            const progressPanel = document.getElementById('progressPanel');
-            const autoResults = document.getElementById('autoResults');
-            progressPanel.style.display = 'block';
-            autoResults.style.display = 'none';
+            // Simulate search delay
+            await new Promise(r => setTimeout(r, 800));
             
-            // Initialize main progress bar
-            document.querySelector('.main-progress-bar').innerHTML = '<div class="main-progress-fill" id="mainProgressFill"></div>';
-            document.querySelector('.progress-percent').textContent = '0%';
+            document.getElementById('resultsSection').style.display = 'block';
+            document.getElementById('resultCount').textContent = `${demoVideos.length} results for "${query}"`;
             
-            // Show progress steps
-            document.getElementById('progressSteps').innerHTML = `
-                <div class="progress-step active">
-                    <div class="step-icon">🔍</div>
-                    <div class="step-info">
-                        <div class="step-title">Searching for "${query}"</div>
-                        <div class="step-desc">Finding short videos under ${maxDuration} minutes</div>
-                    </div>
-                    <div class="spinner"></div>
-                </div>
-                <div class="progress-step pending">
-                    <div class="step-icon">📥</div>
-                    <div class="step-info">
-                        <div class="step-title">Waiting...</div>
-                        <div class="step-desc">Download will start after search</div>
-                    </div>
-                </div>
-                <div class="progress-step pending">
-                    <div class="step-icon">🎯</div>
-                    <div class="step-info">
-                        <div class="step-title">Waiting...</div>
-                        <div class="step-desc">Speaker diarization pending</div>
-                    </div>
-                </div>
-                <div class="progress-step pending">
-                    <div class="step-icon">✂️</div>
-                    <div class="step-info">
-                        <div class="step-title">Waiting...</div>
-                        <div class="step-desc">Extracting segments</div>
-                    </div>
-                </div>
-            `;
-            
-            // Simulate the full pipeline
-            setTimeout(() => {
-                updateProgress(1, 'done', '📺', `Found 3 short videos for "${query}"`);
-                
-                setTimeout(() => {
-                    updateProgress(2, 'active', '📥', 'Downloading 3 videos...');
-                    downloadDemoFiles(query, ['Video 1', 'Video 2', 'Video 3']);
-                    
-                    setTimeout(() => {
-                        updateProgress(2, 'done', '✅', 'Downloaded 3/3 videos');
-                        
-                        setTimeout(() => {
-                            updateProgress(3, 'active', '🎯', `Running speaker diarization... (min ${minConf} confidence)`);
-                            
-                            setTimeout(() => {
-                                updateProgress(3, 'done', '✅', 'Diarization complete');
-                                updateProgress(4, 'active', '✂️', 'Extracting high-confidence segments...');
-                                
-                                setTimeout(() => {
-                                    updateProgress(4, 'done', '✅', 'Extracted 7 segments');
-                                    showAutoResults(query);
-                                }, 1500);
-                            }, 2500);
-                        }, 1000);
-                    }, 3000);
-                }, 500);
-            }, 1500);
-        }
-
-        function updateProgress(step, status, icon, desc) {
-            const steps = document.querySelectorAll('.progress-step');
-            if (steps[step - 1]) {
-                steps[step - 1].className = `progress-step ${status}`;
-                steps[step - 1].querySelector('.step-icon').textContent = icon;
-                steps[step - 1].querySelector('.step-desc').textContent = desc;
-                if (status === 'active') {
-                    steps[step - 1].innerHTML += '<div class="spinner"></div>';
-                }
-            }
-            
-            // Update main progress bar
-            const progressFill = document.getElementById('mainProgressFill');
-            const progressPercent = document.querySelector('.progress-percent');
-            if (progressFill && progressPercent) {
-                const percent = (step / 4) * 100;
-                progressFill.style.width = percent + '%';
-                progressPercent.textContent = Math.round(percent) + '%';
-            }
-        }
-
-        function downloadDemoFiles(query, names) {
-            names.forEach((name, i) => {
-                setTimeout(() => {
-                    const download = {
-                        id: Date.now() + i,
-                        name: `${query} - ${name}`,
-                        status: 'Downloading...',
-                        progress: 0
-                    };
-                    downloads.unshift(download);
-                    updateDownloadsList();
-                    simulateDownload(download.id);
-                }, i * 800);
-            });
-        }
-
-        function showAutoResults(query) {
-            const container = document.getElementById('autoResults');
-            const segmentsList = document.getElementById('segmentsList');
-            const count = document.getElementById('segmentCount');
-            
-            const speakers = ['Target Speaker', 'Interviewer', 'Host'];
-            const segments = [];
-            
-            for (let i = 0; i < 7; i++) {
-                const start = Math.floor(Math.random() * 300);
-                const end = start + Math.floor(Math.random() * 60) + 30;
-                segments.push({
-                    speaker: speakers[Math.floor(Math.random() * speakers.length)],
-                    start: start,
-                    end: end,
-                    confidence: (0.85 + Math.random() * 0.14).toFixed(2),
-                    title: `${query} - Video ${Math.floor(Math.random() * 3) + 1}`
-                });
-            }
-            
-            // Sort by confidence
-            segments.sort((a, b) => parseFloat(b.confidence) - parseFloat(a.confidence));
-            
-            container.style.display = 'block';
-            count.textContent = `${segments.length} segments found`;
-            
-            segmentsList.innerHTML = segments.map(s => {
-                const conf = parseFloat(s.confidence);
-                const isTarget = s.speaker === 'Target Speaker';
-                return `
-                    <div class="segment-card" style="${isTarget ? 'border-color: #38ef7d;' : ''}">
-                        <div class="segment-header">
-                            <span class="segment-speaker">${isTarget ? '🎯 ' : ''}${s.speaker}</span>
-                            <span class="segment-confidence">${(conf * 100).toFixed(0)}% confident</span>
-                        </div>
-                        <div class="segment-time">${formatTime(s.start)} - ${formatTime(s.end)} (${s.end - s.start}s)</div>
-                        <div class="segment-title">${s.title}</div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function formatTime(seconds) {
-            const m = Math.floor(seconds / 60);
-            const s = seconds % 60;
-            return `${m}:${s.toString().padStart(2, '0')}`;
-        }
-
-        function searchSingle(e) {
-            e.preventDefault();
-            const url = document.getElementById('singleUrl').value.trim();
-            if (!url) return;
-            
-            const download = {
-                id: Date.now(),
-                name: url.split('v=')[1]?.split('&')[0] || 'video',
-                status: 'Downloading...',
-                progress: 0
-            };
-            downloads.unshift(download);
-            updateDownloadsList();
-            simulateDownload(download.id);
-        }
-
-        function searchBatch(e) {
-            e.preventDefault();
-            const query = document.getElementById('batchQuery').value.trim();
-            if (!query) return;
-            
-            const grid = document.getElementById('batchResults');
-            grid.innerHTML = demoVideos.map(video => `
+            document.getElementById('resultsGrid').innerHTML = demoVideos.map(v => `
                 <div class="video-card">
                     <div class="video-thumbnail">
                         🎬
-                        <div class="video-duration">${video.duration}</div>
+                        <div class="video-duration">${v.duration}</div>
                     </div>
                     <div class="video-info">
-                        <div class="video-title">${video.title}</div>
-                        <div class="video-meta">
-                            <span>🎵 Audio</span>
-                            <span>⏱️ ${video.duration}</span>
-                        </div>
+                        <div class="video-title">${v.title}</div>
+                        <div class="video-url">${v.url}</div>
                         <div class="video-actions">
-                            <button class="btn btn-success btn-small" onclick="quickDownload('${video.title}')">⬇️ Download</button>
+                            <button class="btn btn-copy btn-small" onclick="copyUrl('${v.url}')">
+                                📋 Copy URL
+                            </button>
+                            <button class="btn btn-primary btn-small" onclick="openUrl('${v.url}')">
+                                🔗 Open
+                            </button>
                         </div>
                     </div>
                 </div>
             `).join('');
+            
+            btn.textContent = 'Search';
         }
-
-        function quickDownload(title) {
-            const download = {
-                id: Date.now(),
-                name: title.substring(0, 40),
-                status: 'Downloading...',
-                progress: 0
-            };
-            downloads.unshift(download);
-            updateDownloadsList();
-            simulateDownload(download.id);
+        
+        function copyUrl(url) {
+            navigator.clipboard.writeText(url).then(() => {
+                alert('URL copied to clipboard!');
+            }).catch(() => {
+                prompt('Copy this URL:', url);
+            });
         }
-
-        function simulateDownload(id) {
-            const download = downloads.find(d => d.id === id);
-            if (!download) return;
-
-            const interval = setInterval(() => {
-                if (download.progress >= 100) {
-                    clearInterval(interval);
-                    download.status = '✓ Complete';
-                    download.progress = 100;
-                    updateDownloadsList();
-                } else {
-                    download.progress += Math.random() * 15;
-                    if (download.progress > 100) download.progress = 100;
-                    updateDownloadsList();
-                }
-            }, 400);
-        }
-
-        function updateDownloadsList() {
-            const container = document.getElementById('downloadsList');
-            if (downloads.length === 0) {
-                container.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📭</div>
-                        <p>No downloads yet. Start by entering a name above!</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = downloads.map(d => `
-                <div class="download-item">
-                    <div class="download-icon">${d.progress >= 100 ? '✓' : '⏳'}</div>
-                    <div class="download-info">
-                        <div class="download-name">${d.name}</div>
-                        <div class="download-status">${d.status}</div>
-                        ${d.progress < 100 && d.progress > 0 ? `
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: ${d.progress}%"></div>
-                            </div>
-                        ` : ''}
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function clearDownloads() {
-            downloads = [];
-            updateDownloadsList();
+        
+        function openUrl(url) {
+            window.open(url, '_blank');
         }
     </script>
 </body>
